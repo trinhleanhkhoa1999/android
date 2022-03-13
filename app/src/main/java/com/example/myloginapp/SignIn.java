@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,7 +24,6 @@ public class SignIn extends AppCompatActivity {
         TextView register = (TextView) findViewById(R.id.register);
 
         MaterialButton loginbtn = (MaterialButton) findViewById(R.id.loginbtn);
-
         //chuc nang xac thuc login
         loginbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -38,21 +38,43 @@ public class SignIn extends AppCompatActivity {
                             startActivity(x);
                 }else
                     Toast.makeText(SignIn.this, "LOGIN FAILED !!!", Toast.LENGTH_SHORT).show();
+
+                String testUsername = username.getText().toString();
+                String testPass = password.getText().toString();
+                if(TextUtils.isEmpty(testUsername)){
+                    username.setError("Username is required");
+                }
+                if(TextUtils.isEmpty(testPass)){
+                    password.setError("Password is required");
+                }
             }
         });
         // chuyen sang trang register
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                int Register = 1;
                 Intent i = new Intent();
                 // tu trang signin sang trang register
                 i.setClass(SignIn.this,
                         Register.class);
                 // van hanh chuyen trang
-                startActivity(i);
+                startActivityForResult(i, Register );
             }
         });
 
+
+
     }
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        if (requestCode == 1) {
+//            if(resultCode == Activity.RESULT_OK){
+//                String result=data.getStringExtra("result");
+//            }
+//
+//        }
+//    }
 }
