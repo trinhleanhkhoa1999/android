@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/holo_orange_dark"
+    android:padding="20dp"
+    >
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="List category"
+        android:textSize="30dp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcv_user"
+        android:layout_below="@+id/name"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        ></androidx.recyclerview.widget.RecyclerView>
+
+
+    <TextView
+        android:id="@+id/name2"
+        android:layout_below="@+id/rcv_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="List phim"
+        android:textSize="30dp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcv_user1"
+        android:layout_below="@+id/name2"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        ></androidx.recyclerview.widget.RecyclerView>
+
+
+
+
+
+
+</RelativeLayout>
