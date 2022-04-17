@@ -2,7 +2,9 @@ package com.example.myloginapp;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Chanel {
+import java.io.Serializable;
+
+public class Chanel implements Serializable {
 
     @SerializedName("_id")
     private String Id;

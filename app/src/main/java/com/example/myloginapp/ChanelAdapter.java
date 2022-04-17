@@ -1,6 +1,9 @@
 package com.example.myloginapp;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,11 +36,23 @@ public class ChanelAdapter extends RecyclerView.Adapter<ChanelAdapter.ChanelView
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ChanelViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ChanelViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Chanel chanel = mChanelsList.get(position);
         Picasso.get().load(mChanelsList.get(position).getImage()).into(holder.chanelView);
         holder.chanelTextView1.setText(chanel.getTitle());
         holder.chanelTextView2.setText(chanel.getCobtent());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(view.getContext(),Detail.class);
+                i.putExtra("chanel",mChanelsList.get(position));
+                view.getContext().startActivity(i);
+
+                System.out.println("linear click>>>>>>>>>>>>");
+
+            }
+        });
     }
 
     @Override
