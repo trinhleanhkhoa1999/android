@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../layout/custom_preview.xml" value="0.1" />
         <entry key="..\:/Users/ACER/Desktop/dienThoai/app/src/main/res/layout/activity_index.xml" value="0.2" />
         <entry key="..\:/Users/ACER/Desktop/dienThoai/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Users/ACER/Desktop/dienThoai/app/src/main/res/layout/fragment_favorite.xml" value="0.17806484295845998" />
@@ -15,6 +16,18 @@
         <entry key="..\:/Users/ACER/Desktop/dienThoai/app/src/main/res/layout/item_user1.xml" value="0.1" />
         <entry key="..\:/Users/ACER/Desktop/dienThoai/app/src/main/res/layout/register.xml" value="0.1" />
         <entry key="..\:/Users/ACER/Desktop/dienThoai/app/src/main/res/layout/signin.xml" value="0.264" />
+        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.169" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.169" />
+        <entry key="app/src/main/res/layout/activity_detail.xml" value="0.1322463768115942" />
+        <entry key="app/src/main/res/layout/activity_index.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/content_detail_channel.xml" value="0.1322463768115942" />
+        <entry key="app/src/main/res/layout/fragment_favorite.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_first.xml" value="0.1322463768115942" />
+        <entry key="app/src/main/res/layout/fragment_history.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_home2.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_second.xml" value="0.1322463768115942" />
+        <entry key="app/src/main/res/layout/item_chanel.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/item_user.xml" value="0.1" />
       </map>
     </option>
   </component>
