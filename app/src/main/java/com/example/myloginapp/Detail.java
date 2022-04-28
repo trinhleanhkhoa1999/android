@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.MediaItem;
+import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.ui.StyledPlayerView;
 
@@ -24,7 +25,6 @@ public class Detail extends AppCompatActivity {
         playerView = findViewById(R.id.playerView);
 
         playChannel(chanel.getUrl());
-
     }
 
     public  void  OpenLink(String url){
@@ -33,7 +33,7 @@ public class Detail extends AppCompatActivity {
     }
 
     public  void  playChannel(String live_url){
-        ExoPlayer exoPlayer = new ExoPlayer.Builder(this).build();
+        ExoPlayer exoPlayer= new ExoPlayer.Builder(this).build();
         playerView.setPlayer(exoPlayer);
         MediaItem mediaItem = MediaItem.fromUri(live_url);
         exoPlayer.setMediaItem(mediaItem);

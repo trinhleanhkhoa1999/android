@@ -2,11 +2,16 @@ package com.example.myloginapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.os.Bundle;
+import android.view.Menu;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -16,6 +21,9 @@ public class Index extends AppCompatActivity {
     private TabLayout mTablayout;
     private ViewPager2 mViewPager;
     private MyViewPagerAdapter myViewPagerAdapter;
+    Toolbar toolbar;
+    SearchView searchView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +31,8 @@ public class Index extends AppCompatActivity {
 
         mTablayout = findViewById(R.id.tab_layout);
         mViewPager = findViewById(R.id.view_pager);
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         myViewPagerAdapter = new MyViewPagerAdapter(this);
         mViewPager.setAdapter(myViewPagerAdapter);
@@ -40,5 +50,28 @@ public class Index extends AppCompatActivity {
                     break;
             }
         }).attach();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu,menu);
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setMaxWidth(Integer.MAX_VALUE);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+//        return true;
+        return super.onCreateOptionsMenu(menu);
     }
 }

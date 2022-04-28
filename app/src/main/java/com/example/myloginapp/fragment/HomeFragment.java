@@ -1,14 +1,20 @@
 package com.example.myloginapp.fragment;
 
+import android.app.SearchManager;
+import android.content.Context;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -36,11 +42,36 @@ public class HomeFragment<onViewCreated> extends Fragment {
     ChanelAdapter chanelAdapter;
     RecyclerView recyclerView;
     private LinkedList<Chanel> mChanelsList;
+    SearchView searchView;
 
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+
+        SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
+        super.onCreateOptionsMenu(menu, inflater);
+        searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
+        searchView.setMaxWidth(Integer.MAX_VALUE);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                chanelAdapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        setHasOptionsMenu(true);
 
 //        rcvUser = view.findViewById(R.id.rcv_user);
 //        rcvUser1 = view.findViewById(R.id.rcv_user1);
@@ -72,34 +103,6 @@ public class HomeFragment<onViewCreated> extends Fragment {
     }
 
 
-//    private List<User> getListUser() {
-//        List<User> list = new ArrayList<>();
-//        list.add(new User(R.drawable.fim1, "User Name 1"));
-//        list.add(new User(R.drawable.fim2, "User Name 2"));
-//        list.add(new User(R.drawable.fim3, "User Name 3"));
-//        list.add(new User(R.drawable.fim4, "User Name 4"));
-//
-//        list.add(new User(R.drawable.fim1, "User Name 1"));
-//        list.add(new User(R.drawable.fim2, "User Name 2"));
-//        list.add(new User(R.drawable.fim3, "User Name 3"));
-//        list.add(new User(R.drawable.fim4, "User Name 4"));
-//
-//        list.add(new User(R.drawable.fim1, "User Name 1"));
-//        list.add(new User(R.drawable.fim2, "User Name 2"));
-//        list.add(new User(R.drawable.fim3, "User Name 3"));
-//        list.add(new User(R.drawable.fim4, "User Name 4"));
-//
-//        return list;
-//    }
-//    private List<User> getListUser1() {
-//        List<User> list1 = new ArrayList<>();
-//        list1.add(new User(R.drawable.fb, "User Name 1"));
-//        list1.add(new User(R.drawable.ig, "User Name 2"));
-//        list1.add(new User(R.drawable.fim3, "User Name 3"));
-//        list1.add(new User(R.drawable.fim4, "User Name 4"));
-//
-//        return list1;
-//    }
     private void fetchChanels(){
         ApiService.apiService.GetChanels().enqueue(new Callback<List<Chanel>>() {
             @Override
@@ -113,6 +116,7 @@ public class HomeFragment<onViewCreated> extends Fragment {
                     Toast.makeText(getActivity(),"load 3",response.code()).show();
                     chanelAdapter.notifyDataSetChanged();
                     recyclerView.setAdapter(chanelAdapter);
+
                 }
             }
 
@@ -129,4 +133,6 @@ public class HomeFragment<onViewCreated> extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home2, container, false);
     }
+
+
 }

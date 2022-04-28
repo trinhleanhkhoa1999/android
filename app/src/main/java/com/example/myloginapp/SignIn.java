@@ -4,15 +4,20 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.myloginapp.broadcast.BroadcastInternet;
 import com.google.android.material.button.MaterialButton;
 
 public class SignIn extends AppCompatActivity {
+    private BroadcastInternet broadcastInternet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +27,10 @@ public class SignIn extends AppCompatActivity {
         TextView username = (TextView) findViewById(R.id.username);
         TextView password = (TextView) findViewById(R.id.password);
         TextView register = (TextView) findViewById(R.id.register);
+
+
+
+        broadcastInternet = new BroadcastInternet();
 
         MaterialButton loginbtn = (MaterialButton) findViewById(R.id.loginbtn);
         //chuc nang xac thuc login
@@ -77,4 +86,18 @@ public class SignIn extends AppCompatActivity {
 //
 //        }
 //    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(broadcastInternet,intentFilter);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        unregisterReceiver(broadcastInternet);
+    }
+
 }
