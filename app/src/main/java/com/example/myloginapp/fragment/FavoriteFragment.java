@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myloginapp.R;
-import com.example.myloginapp.User;
-import com.example.myloginapp.UserAdapter;
+import com.example.myloginapp.Cartoon;
+import com.example.myloginapp.CartoonAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +24,7 @@ public class FavoriteFragment extends Fragment {
 
 
     private RecyclerView rcvUser ;
-    private UserAdapter mUserAdapter;
+    private CartoonAdapter mUserAdapter;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -32,7 +32,7 @@ public class FavoriteFragment extends Fragment {
 
         rcvUser = view.findViewById(R.id.rcv_user);
 //        getActivity().findViewById(R.id.rcv_user);
-        mUserAdapter = new UserAdapter(requireContext());
+        mUserAdapter = new CartoonAdapter(requireContext());
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(requireContext(), 3);
         rcvUser.setLayoutManager(gridLayoutManager);
@@ -41,22 +41,22 @@ public class FavoriteFragment extends Fragment {
         rcvUser.setAdapter(mUserAdapter);
     }
 
-    private List<User> getListUser() {
-        List<User> list = new ArrayList<>();
-        list.add(new User(R.drawable.fim1, "User Name 1"));
-        list.add(new User(R.drawable.fim2, "User Name 2"));
-        list.add(new User(R.drawable.fim3, "User Name 3"));
-        list.add(new User(R.drawable.fim4, "User Name 4"));
+    private List<Cartoon> getListUser() {
+        List<Cartoon> list = new ArrayList<>();
+        list.add(new Cartoon(R.drawable.fim1, "User Name 1"));
+        list.add(new Cartoon(R.drawable.fim2, "User Name 2"));
+        list.add(new Cartoon(R.drawable.fim3, "User Name 3"));
+        list.add(new Cartoon(R.drawable.fim4, "User Name 4"));
 
-        list.add(new User(R.drawable.fim1, "User Name 1"));
-        list.add(new User(R.drawable.fim2, "User Name 2"));
-        list.add(new User(R.drawable.fim3, "User Name 3"));
-        list.add(new User(R.drawable.fim4, "User Name 4"));
+        list.add(new Cartoon(R.drawable.fim1, "User Name 1"));
+        list.add(new Cartoon(R.drawable.fim2, "User Name 2"));
+        list.add(new Cartoon(R.drawable.fim3, "User Name 3"));
+        list.add(new Cartoon(R.drawable.fim4, "User Name 4"));
 
-        list.add(new User(R.drawable.fim1, "User Name 1"));
-        list.add(new User(R.drawable.fim2, "User Name 2"));
-        list.add(new User(R.drawable.fim3, "User Name 3"));
-        list.add(new User(R.drawable.fim4, "User Name 4"));
+        list.add(new Cartoon(R.drawable.fim1, "User Name 1"));
+        list.add(new Cartoon(R.drawable.fim2, "User Name 2"));
+        list.add(new Cartoon(R.drawable.fim3, "User Name 3"));
+        list.add(new Cartoon(R.drawable.fim4, "User Name 4"));
 
         return list;
     }

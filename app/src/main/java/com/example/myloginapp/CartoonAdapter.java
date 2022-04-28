@@ -12,16 +12,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder> {
+public class CartoonAdapter extends RecyclerView.Adapter<CartoonAdapter.UserViewHolder> {
 
     private Context mContext;
-    private List<User> mListUser;
+    private List<Cartoon> mListUser;
 
-    public UserAdapter(Context mContext) {
+    public CartoonAdapter(Context mContext) {
         this.mContext = mContext;
     }
 
-    public void setData(List<User> list){
+    public void setData(List<Cartoon> list){
         this.mListUser = list;
         notifyDataSetChanged();
     }
@@ -31,13 +31,13 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     @NonNull
     @Override
     public UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_user, parent, false );
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_cartoon, parent, false );
         return new UserViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
-        User user = mListUser.get(position);
+        Cartoon user = mListUser.get(position);
         if (user == null) {
             return;
         }

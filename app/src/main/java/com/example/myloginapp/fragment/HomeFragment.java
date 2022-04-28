@@ -1,17 +1,13 @@
 package com.example.myloginapp.fragment;
 
-import static android.content.ContentValues.TAG;
-
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,13 +15,9 @@ import android.widget.Toast;
 
 import com.example.myloginapp.Chanel;
 import com.example.myloginapp.ChanelAdapter;
-import com.example.myloginapp.Index;
 import com.example.myloginapp.R;
-import com.example.myloginapp.User;
-import com.example.myloginapp.UserAdapter;
 import com.example.myloginapp.api.ApiService;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 

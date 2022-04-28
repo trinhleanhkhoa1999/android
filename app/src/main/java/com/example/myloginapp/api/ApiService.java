@@ -26,4 +26,6 @@ public interface ApiService {
             .create(ApiService.class);
     @GET("chanels")
     Call<List<Chanel>> GetChanels();
+
+
 }

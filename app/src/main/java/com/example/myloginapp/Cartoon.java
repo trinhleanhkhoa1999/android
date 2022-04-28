@@ -1,10 +1,10 @@
 package com.example.myloginapp;
 
-public class User {
+public class Cartoon {
     private int resouceImg;
     private String name;
 
-    public User(int resouceImg, String name) {
+    public Cartoon(int resouceImg, String name) {
         this.resouceImg = resouceImg;
         this.name = name;
     }
