@@ -10,7 +10,12 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.myloginapp.api.LoginApi;
 import com.google.android.material.button.MaterialButton;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class Register extends AppCompatActivity {
@@ -51,11 +56,37 @@ public class Register extends AppCompatActivity {
                     if(testpassword_register.length() <=8 && testconfirmpassword_register.length() <=8){
                         Toast.makeText(Register.this, "password it nhat 8 ky tu", Toast.LENGTH_SHORT).show();
                     }else if(testpassword_register.equals(testconfirmpassword_register)) {
-                        Toast.makeText(Register.this, "REGISTER SUCCESSFULL !!!", Toast.LENGTH_SHORT).show();
-                        Intent i = new Intent();
-                        i.setClass(Register.this,
+                        LoginRequest loginRequest = new LoginRequest(username_register.getText().toString(),
+                                password_register.getText().toString());
+                        Call<RegisterResponse> call = LoginApi.loginApi.register(loginRequest);
+                        call.enqueue(new Callback<RegisterResponse>() {
+                            @Override
+                            public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
+                                if (response.isSuccessful() && response.body() !=null)
+                                {
+                                    RegisterResponse registerResponse = response.body();
+                                    Toast.makeText(Register.this,registerResponse.message,Toast.LENGTH_LONG).show();
+                                }
+                                Intent i = new Intent();
+                                i.setClass(Register.this,
                                 SignIn.class);
-                        startActivity(i);
+                                startActivity(i);
+                            }
+
+                            @Override
+                            public void onFailure(Call<RegisterResponse> call, Throwable t) {
+                                Toast.makeText(Register.this,t.getMessage(),Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }else{
+                        Toast.makeText(Register.this, "ConfirmPassword phai bang voi Password", Toast.LENGTH_SHORT).show();
+                    };
+
+//                        Toast.makeText(Register.this, "REGISTER SUCCESSFULL !!!", Toast.LENGTH_SHORT).show();
+//                        Intent i = new Intent();
+//                        i.setClass(Register.this,
+//                                SignIn.class);
+//                        startActivity(i);
 
 
 //                        user result = new user(testusername_register, testpassword_register);
@@ -70,9 +101,7 @@ public class Register extends AppCompatActivity {
 //                        System.out.println( testpassword_register+ "  " +"testpassword_register");
 //                        System.out.println( testconfirmpassword_register+ "  " +"confirmpassword_register");
 
-                    }else{
-                        Toast.makeText(Register.this, "ConfirmPassword phai bang voi Password", Toast.LENGTH_SHORT).show();
-                    };
+
                 }
             }
         });
