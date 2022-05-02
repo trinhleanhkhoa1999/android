@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background_corner_16"
+    android:layout_margin="16dp"
+    android:orientation="vertical"
+    >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:background="@drawable/background_corner_top_left_top_right_16"
+        android:text="YOU MUST LOGIN FOR WATCH"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_no"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1"
+            android:text="Cancel" />
+        <Button
+            android:id="@+id/btn_login"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:text="Login"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

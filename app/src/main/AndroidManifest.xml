@@ -12,7 +12,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyLoginApp">
         <activity
-
             android:name=".WelcomeActivity"
             android:exported="true" >
             <intent-filter>
@@ -26,7 +25,9 @@
             android:exported="true" />
         <activity
             android:name=".Index"
-            android:exported="true" />
+            android:exported="true" >
+
+        </activity>
         <activity
             android:name=".Register"
             android:exported="false" />

@@ -20,11 +20,12 @@ public class Detail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        Chanel chanel = (Chanel)getIntent().getSerializableExtra("chanel");
+//        Chanel chanel = (Chanel)getIntent().getSerializableExtra("chanel");
+        String chanel = (String)getIntent().getSerializableExtra("chanel");
 
         playerView = findViewById(R.id.playerView);
 
-        playChannel(chanel.getUrl());
+        playChannel(chanel);
     }
 
     public  void  OpenLink(String url){
