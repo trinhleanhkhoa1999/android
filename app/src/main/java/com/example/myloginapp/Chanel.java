@@ -1,11 +1,17 @@
 package com.example.myloginapp;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
-
+@Entity(tableName = "chanel")
 public class Chanel implements Serializable {
 
+    @PrimaryKey
+    @NonNull
     @SerializedName("_id")
     private String Id;
     @SerializedName("title")
@@ -38,12 +44,12 @@ public class Chanel implements Serializable {
         Title = title;
     }
 
-    public String getCobtent() {
+    public String getContent() {
         return Content;
     }
 
-    public void setCobtent(String cobtent) {
-        Content = cobtent;
+    public void setContent(String content) {
+        Content = content;
     }
 
     public String getUrl() {

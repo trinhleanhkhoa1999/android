@@ -24,6 +24,7 @@ import com.example.myloginapp.ChanelAdapter;
 import com.example.myloginapp.R;
 import com.example.myloginapp.api.ApiService;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -41,7 +42,7 @@ public class HomeFragment<onViewCreated> extends Fragment {
 
     ChanelAdapter chanelAdapter;
     RecyclerView recyclerView;
-    private LinkedList<Chanel> mChanelsList;
+    private List<Chanel> mChanelsList;
     SearchView searchView;
 
 
@@ -72,6 +73,14 @@ public class HomeFragment<onViewCreated> extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
+        mChanelsList  = new ArrayList<>();
+        recyclerView = view.findViewById(R.id.recycleChanel);
+        recyclerView.setLayoutManager(new GridLayoutManager(requireContext(),1));
+
+        chanelAdapter = new ChanelAdapter(requireContext(),mChanelsList,1);
+        recyclerView.setAdapter(chanelAdapter);
+
+        fetchChanels();
 
 //        rcvUser = view.findViewById(R.id.rcv_user);
 //        rcvUser1 = view.findViewById(R.id.rcv_user1);
@@ -90,16 +99,7 @@ public class HomeFragment<onViewCreated> extends Fragment {
 //
 //        rcvUser1.setAdapter(mUserAdapter);
 
-        mChanelsList  = new LinkedList<>();
-        recyclerView = view.findViewById(R.id.recycleChanel);
-        recyclerView.setLayoutManager(new GridLayoutManager(requireContext(),1));
 
-
-
-        chanelAdapter = new ChanelAdapter(requireContext(),mChanelsList);
-        recyclerView.setAdapter(chanelAdapter);
-
-        fetchChanels();
     }
 
 

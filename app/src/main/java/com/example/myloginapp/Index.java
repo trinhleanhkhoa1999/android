@@ -8,10 +8,16 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.app.Dialog;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -19,10 +25,15 @@ import com.google.android.material.tabs.TabLayoutMediator;
 public class Index extends AppCompatActivity {
 
     private TabLayout mTablayout;
+    private Context mContext;
     private ViewPager2 mViewPager;
     private MyViewPagerAdapter myViewPagerAdapter;
     Toolbar toolbar;
     SearchView searchView;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+    public static final String TOKEN = "token";
+    Dialog myDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +44,11 @@ public class Index extends AppCompatActivity {
         mViewPager = findViewById(R.id.view_pager);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        myDialog = new Dialog(this);
+        myDialog.setContentView(R.layout.dialog_logout);
+
+        sharedPreferences = this.getSharedPreferences(TOKEN,0);
 
         myViewPagerAdapter = new MyViewPagerAdapter(this);
         mViewPager.setAdapter(myViewPagerAdapter);
@@ -73,5 +89,48 @@ public class Index extends AppCompatActivity {
         });
 //        return true;
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_search:
+                return true;
+            case R.id.action_logout:
+
+                openDiaLog();
+                return true;
+            default:
+             return  super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void logoutUser() {
+        // Launching the login activity
+        sharedPreferences.edit().clear().apply();
+        Intent intent = new Intent(this, SignIn.class);
+        startActivity(intent);
+    }
+
+    private  void  openDiaLog(){
+        myDialog.show();
+        Button btnNo = myDialog.findViewById(R.id.btn_no_logout);
+        Button btnLogin = myDialog.findViewById(R.id.btn_logout);
+
+        btnNo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                myDialog.dismiss();
+            }
+        });
+
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sharedPreferences.edit().clear().apply();
+                Intent intent = new Intent(view.getContext(), SignIn.class);
+                startActivity(intent);
+            }
+        });
     }
 }
