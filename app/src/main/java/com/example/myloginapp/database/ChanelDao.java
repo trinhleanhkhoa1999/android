@@ -1,6 +1,7 @@
 package com.example.myloginapp.database;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
@@ -19,4 +20,7 @@ public interface ChanelDao {
 
     @Query("SELECT * FROM chanel")
     List<Chanel> getListChanel();
+
+    @Delete
+    void Delete(Chanel chanel);
 }

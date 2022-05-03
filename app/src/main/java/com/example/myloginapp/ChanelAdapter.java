@@ -94,15 +94,26 @@ public class ChanelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     ChanelDatabase.getInstance(view.getContext()).chanelDao().InsertChanel(chanel);
                     Intent i = new Intent(view.getContext(),Detail.class);
                     i.putExtra("chanel",mChanelsList.get(position).getUrl());
+                    i.putExtra("chaneltitle",mChanelsList.get(position).getTitle());
+                    i.putExtra("chanelcontent",mChanelsList.get(position).getContent());
                     view.getContext().startActivity(i);
                 }
             }
         });}
         }
         else {
+            myDialog = new Dialog(mContext);
+            myDialog.setContentView(R.layout.delete_dialog);
             HistoryChanelViewHolder historyChanelViewHolder = (HistoryChanelViewHolder) holder;
             Picasso.get().load(mChanelsList.get(position).getImage()).into(historyChanelViewHolder.chanelView);
 //            historyChanelViewHolder.chanelTextView1.setText(chanel.getTitle());
+            historyChanelViewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    deleteDiaLog(chanel);
+                    return false;
+                }
+            });
             historyChanelViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -114,6 +125,8 @@ public class ChanelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                         ChanelDatabase.getInstance(view.getContext()).chanelDao().getListChanel();
                         Intent i = new Intent(view.getContext(),Detail.class);
                         i.putExtra("chanel",mChanelsList.get(position).getUrl());
+                        i.putExtra("chaneltitle",mChanelsList.get(position).getTitle());
+                        i.putExtra("chanelcontent",mChanelsList.get(position).getContent());
                         view.getContext().startActivity(i);
                     }
                 }
@@ -182,6 +195,11 @@ public class ChanelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             chanelView= itemView.findViewById(R.id.img_chanel);
 //            chanelTextView1 = itemView.findViewById((R.id.tv_title));
         }
+    }
+
+    public void Loaddata(){
+        mChanelsList = ChanelDatabase.getInstance(mContext).chanelDao().getListChanel();
+        notifyDataSetChanged();
     }
 
     public void addView(List<Chanel> items){
@@ -255,6 +273,28 @@ public class ChanelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(),SignIn.class);
                 view.getContext().startActivity(intent);
+            }
+        });
+    }
+
+    private  void  deleteDiaLog(Chanel chanel){
+        myDialog.show();
+        Button btnNo = myDialog.findViewById(R.id.btn_no);
+        Button btnLogin = myDialog.findViewById(R.id.btn_delete);
+
+        btnNo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                myDialog.dismiss();
+            }
+        });
+
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ChanelDatabase.getInstance(view.getContext()).chanelDao().Delete(chanel);
+                Loaddata();
+                myDialog.dismiss();
             }
         });
     }
