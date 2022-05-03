@@ -32,8 +32,9 @@
         <entry key="app/src/main/res/layout/fragment_history.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_home2.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.1322463768115942" />
+        <entry key="app/src/main/res/layout/history_chanel.xml" value="0.1" />
         <entry key="app/src/main/res/layout/item_cartoon.xml" value="0.18177083333333333" />
-        <entry key="app/src/main/res/layout/item_chanel.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/item_chanel.xml" value="0.25" />
         <entry key="app/src/main/res/layout/item_user.xml" value="0.1" />
         <entry key="app/src/main/res/layout/register.xml" value="0.2712820512820513" />
         <entry key="app/src/main/res/menu/main_menu.xml" value="0.18072916666666666" />
