@@ -51,7 +51,7 @@ public class HistoryFragment extends Fragment implements SwipeRefreshLayout.OnRe
         recyclerView.addItemDecoration(itemDecoration);
         swipeRefreshLayout.setOnRefreshListener(this);
 
-//        chanelAdapter.addView(getListChanel());
+        chanelAdapter.addView(getListChanel());
 
 //        ChanelAdapter.
 //        recyclerView.setAdapter(chanelAdapter);

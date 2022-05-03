@@ -27,6 +27,7 @@
         <entry key="app/src/main/res/layout/activity_welcome.xml" value="0.31203703703703706" />
         <entry key="app/src/main/res/layout/content_detail_channel.xml" value="0.1322463768115942" />
         <entry key="app/src/main/res/layout/dialog_channel.xml" value="0.35520833333333335" />
+        <entry key="app/src/main/res/layout/dialog_logout.xml" value="0.275" />
         <entry key="app/src/main/res/layout/fragment_favorite.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.1322463768115942" />
         <entry key="app/src/main/res/layout/fragment_history.xml" value="0.1" />
@@ -37,6 +38,7 @@
         <entry key="app/src/main/res/layout/item_chanel.xml" value="0.25" />
         <entry key="app/src/main/res/layout/item_user.xml" value="0.1" />
         <entry key="app/src/main/res/layout/register.xml" value="0.2712820512820513" />
+        <entry key="app/src/main/res/layout/signin.xml" value="0.275" />
         <entry key="app/src/main/res/menu/main_menu.xml" value="0.18072916666666666" />
       </map>
     </option>
