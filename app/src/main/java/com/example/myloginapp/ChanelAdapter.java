@@ -127,6 +127,7 @@ public class ChanelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                         i.putExtra("chanel",mChanelsList.get(position).getUrl());
                         i.putExtra("chaneltitle",mChanelsList.get(position).getTitle());
                         i.putExtra("chanelcontent",mChanelsList.get(position).getContent());
+                        Loaddata();
                         view.getContext().startActivity(i);
                     }
                 }
