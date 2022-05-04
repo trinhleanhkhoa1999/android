@@ -1,5 +1,6 @@
 package com.example.myloginapp;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -67,17 +68,20 @@ public class ChanelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         if(TYPE_LAYOUT == 1){
             View view = inflater.inflate(R.layout.item_chanel, parent, false);
             return new ChanelViewHolder(view);
-        }else {
+        }else if(TYPE_LAYOUT==0){
             View view = inflater.inflate(R.layout.history_chanel, parent, false);
             return new HistoryChanelViewHolder(view);
+        }else {
+            View view = inflater.inflate(R.layout.item_favorite, parent, false);
+            return new FavoriteChanelViewHolder(view);
         }
 
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Chanel chanel = mChanelsList.get(position);
-        if (TYPE_LAYOUT ==1 ){{
+        if (TYPE_LAYOUT ==1 ){
             ChanelViewHolder chanelViewHolder = (ChanelViewHolder) holder;
             Picasso.get().load(mChanelsList.get(position).getImage()).into(chanelViewHolder.chanelView);
             chanelViewHolder.chanelTextView1.setText(chanel.getTitle());
@@ -99,9 +103,8 @@ public class ChanelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     view.getContext().startActivity(i);
                 }
             }
-        });}
-        }
-        else {
+        });
+        }else if( TYPE_LAYOUT == 0){
             myDialog = new Dialog(mContext);
             myDialog.setContentView(R.layout.delete_dialog);
             HistoryChanelViewHolder historyChanelViewHolder = (HistoryChanelViewHolder) holder;
@@ -128,6 +131,27 @@ public class ChanelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                         i.putExtra("chaneltitle",mChanelsList.get(position).getTitle());
                         i.putExtra("chanelcontent",mChanelsList.get(position).getContent());
                         Loaddata();
+                        view.getContext().startActivity(i);
+                    }
+                }
+            });
+        } else {
+            FavoriteChanelViewHolder favoriteChanelViewHolder  = (FavoriteChanelViewHolder) holder;
+            Picasso.get().load(mChanelsList.get(position).getImage()).into(favoriteChanelViewHolder.chanelView);
+            favoriteChanelViewHolder.chanelName.setText(chanel.getTitle());
+            favoriteChanelViewHolder.chanelTextRate.setText(String.valueOf(chanel.getRate()));
+            favoriteChanelViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (mChanelsList.get(position).isStatus()){
+                        CheckLogin(mChanelsList.get(position).getId().toString(),view);
+                    }else {
+                        ChanelDatabase.getInstance(view.getContext()).chanelDao().InsertChanel(chanel);
+                        ChanelDatabase.getInstance(view.getContext()).chanelDao().getListChanel();
+                        Intent i = new Intent(view.getContext(),Detail.class);
+                        i.putExtra("chanel",mChanelsList.get(position).getUrl());
+                        i.putExtra("chaneltitle",mChanelsList.get(position).getTitle());
+                        i.putExtra("chanelcontent",mChanelsList.get(position).getContent());
                         view.getContext().startActivity(i);
                     }
                 }
@@ -195,6 +219,19 @@ public class ChanelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
             chanelView= itemView.findViewById(R.id.img_chanel);
 //            chanelTextView1 = itemView.findViewById((R.id.tv_title));
+        }
+    }
+
+    public class FavoriteChanelViewHolder extends RecyclerView.ViewHolder {
+        private ImageView chanelView;
+        private TextView chanelTextRate;
+        private TextView chanelName;
+        public FavoriteChanelViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+            chanelView= itemView.findViewById(R.id.ivImage);
+            chanelTextRate = itemView.findViewById((R.id.tvRate));
+            chanelName = itemView.findViewById(R.id.tvName);
         }
     }
 

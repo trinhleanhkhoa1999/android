@@ -107,19 +107,15 @@ public class HomeFragment<onViewCreated> extends Fragment {
         ApiService.apiService.GetChanels().enqueue(new Callback<List<Chanel>>() {
             @Override
             public void onResponse(Call<List<Chanel>> call, Response<List<Chanel>> response) {
-                Toast.makeText(getActivity(),"LOad",Toast.LENGTH_SHORT).show();
 
                 if(response.isSuccessful() && response.body() !=null ){
 
-                    Toast.makeText(getActivity(),"LOad 2",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(),"Loading",Toast.LENGTH_SHORT).show();
                     mChanelsList.addAll(response.body());
-                    Toast.makeText(getActivity(),"load 3",response.code()).show();
                     chanelAdapter.notifyDataSetChanged();
                     recyclerView.setAdapter(chanelAdapter);
-
                 }
             }
-
             @Override
             public void onFailure(Call<List<Chanel>> call, Throwable t) {
 

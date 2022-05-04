@@ -20,6 +20,17 @@ public class Chanel implements Serializable {
     @SerializedName("status")
     private boolean status;
 
+    @SerializedName("rate")
+    private Integer rate;
+
+    public Integer getRate() {
+        return rate;
+    }
+
+    public void setRate(Integer rate) {
+        this.rate = rate;
+    }
+
     public boolean isStatus() {
         return status;
     }
