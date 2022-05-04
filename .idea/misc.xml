@@ -19,6 +19,8 @@
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.169" />
         <entry key="app/src/main/res/drawable/background_corner_16.xml" value="0.1865" />
         <entry key="app/src/main/res/drawable/background_corner_top_left_top_right_16.xml" value="0.1865" />
+        <entry key="app/src/main/res/drawable/ic_baseline_cancel_24.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_baseline_delete_24.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_baseline_info_24.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_baseline_person_outline_24.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.169" />
@@ -26,7 +28,7 @@
         <entry key="app/src/main/res/layout/activity_index.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_welcome.xml" value="0.31203703703703706" />
         <entry key="app/src/main/res/layout/content_detail_channel.xml" value="0.1322463768115942" />
-        <entry key="app/src/main/res/layout/delete_dialog.xml" value="0.19074074074074074" />
+        <entry key="app/src/main/res/layout/delete_dialog.xml" value="0.33" />
         <entry key="app/src/main/res/layout/dialog_channel.xml" value="0.35520833333333335" />
         <entry key="app/src/main/res/layout/dialog_logout.xml" value="0.275" />
         <entry key="app/src/main/res/layout/fragment_favorite.xml" value="0.1" />
@@ -37,6 +39,7 @@
         <entry key="app/src/main/res/layout/history_chanel.xml" value="0.1" />
         <entry key="app/src/main/res/layout/item_cartoon.xml" value="0.18177083333333333" />
         <entry key="app/src/main/res/layout/item_chanel.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/item_favorite.xml" value="0.29010416666666666" />
         <entry key="app/src/main/res/layout/item_user.xml" value="0.1" />
         <entry key="app/src/main/res/layout/player_layout.xml" value="0.20260416666666667" />
         <entry key="app/src/main/res/layout/register.xml" value="0.2712820512820513" />

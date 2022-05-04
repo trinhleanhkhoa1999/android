@@ -13,10 +13,13 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 
 import com.google.android.material.tabs.TabLayout;
@@ -113,6 +116,8 @@ public class Index extends AppCompatActivity {
     }
 
     private  void  openDiaLog(){
+        myDialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         myDialog.show();
         Button btnNo = myDialog.findViewById(R.id.btn_no_logout);
         Button btnLogin = myDialog.findViewById(R.id.btn_logout);
