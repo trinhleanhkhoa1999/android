@@ -28,11 +28,16 @@
             android:layout_height="50dp"
             android:layout_marginEnd="5dp"
             android:layout_weight="1"
+            android:textSize="15dp"
+            android:drawableLeft="@drawable/ic_baseline_cancel_24"
+            android:singleLine="true"
             android:text="Cancel" />
         <Button
             android:id="@+id/btn_login"
             android:layout_width="0dp"
             android:layout_height="50dp"
+            android:singleLine="true"
+            android:drawableLeft="@drawable/ic_baseline_login_24"
             android:text="Login"
             android:layout_weight="1"/>
     </LinearLayout>

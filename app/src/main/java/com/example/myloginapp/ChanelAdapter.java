@@ -5,9 +5,12 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
@@ -295,6 +298,8 @@ public class ChanelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 //                    view.getContext().startActivity(intent);
 
     private  void  openDiaLog(){
+        myDialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         myDialog.show();
         Button btnNo = myDialog.findViewById(R.id.btn_no);
         Button btnLogin = myDialog.findViewById(R.id.btn_login);
@@ -316,7 +321,10 @@ public class ChanelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     private  void  deleteDiaLog(Chanel chanel){
+        myDialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         myDialog.show();
+
         Button btnNo = myDialog.findViewById(R.id.btn_no);
         Button btnLogin = myDialog.findViewById(R.id.btn_delete);
 
