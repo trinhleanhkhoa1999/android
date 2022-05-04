@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 
+import com.example.myloginapp.database.ChanelDatabase;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -100,7 +101,6 @@ public class Index extends AppCompatActivity {
             case R.id.action_search:
                 return true;
             case R.id.action_logout:
-
                 openDiaLog();
                 return true;
             default:
@@ -121,7 +121,6 @@ public class Index extends AppCompatActivity {
         myDialog.show();
         Button btnNo = myDialog.findViewById(R.id.btn_no_logout);
         Button btnLogin = myDialog.findViewById(R.id.btn_logout);
-
         btnNo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -134,6 +133,7 @@ public class Index extends AppCompatActivity {
             public void onClick(View view) {
                 sharedPreferences.edit().clear().apply();
                 Intent intent = new Intent(view.getContext(), SignIn.class);
+                ChanelDatabase.getInstance(view.getContext()).chanelDao().DeleteAll();
                 startActivity(intent);
             }
         });

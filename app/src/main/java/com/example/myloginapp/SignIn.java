@@ -43,6 +43,8 @@ public class SignIn extends AppCompatActivity {
         TextView username = (TextView) findViewById(R.id.username);
         TextView password = (TextView) findViewById(R.id.password);
         TextView register = (TextView) findViewById(R.id.register);
+        TextView watch = (TextView) findViewById(R.id.watch);
+
 //        chuc nang xac thuc login
 //        loginbtn.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -115,6 +117,14 @@ public class SignIn extends AppCompatActivity {
                         Register.class);
                 // van hanh chuyen trang
                 startActivityForResult(i, Register );
+            }
+        });
+
+        watch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), Index.class);
+                startActivity(intent);
             }
         });
 

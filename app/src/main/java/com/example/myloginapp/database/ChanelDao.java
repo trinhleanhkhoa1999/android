@@ -23,4 +23,7 @@ public interface ChanelDao {
 
     @Delete
     void Delete(Chanel chanel);
+
+    @Query("DELETE FROM chanel")
+    void DeleteAll();
 }
