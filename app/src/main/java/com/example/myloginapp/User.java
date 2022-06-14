@@ -16,6 +16,17 @@ public class User {
     @SerializedName("role")
     String role;
 
+    @SerializedName("image_url")
+    String image_url;
+
+    public String getImage_url() {
+        return image_url;
+    }
+
+    public void setImage_url(String image_url) {
+        this.image_url = image_url;
+    }
+
     public String getUsername() {
         return username;
     }
@@ -64,13 +75,13 @@ public class User {
         this.role = role;
     }
 
-    public User(String username, String password, String email, String phone, String status, String role) {
+    public User(String username, String password, String email, String phone, String status, String role, String image_url) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.phone = phone;
         this.status = status;
         this.role = role;
+        this.image_url = image_url;
     }
-
 }

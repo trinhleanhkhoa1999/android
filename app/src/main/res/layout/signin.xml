@@ -121,19 +121,20 @@
         android:gravity="center">
 
 
-        <ImageView
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_margin="20dp"
-            android:src="@drawable/tw"></ImageView>
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/sign_in_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
         <ImageView
+            android:id="@+id/iv_fb"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_margin="20dp"
             android:src="@drawable/fb"></ImageView>
 
         <ImageView
+            android:id="@+id/iv_insta"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_margin="20dp"

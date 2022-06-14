@@ -21,10 +21,14 @@
         <entry key="app/src/main/res/drawable/background_corner_top_left_top_right_16.xml" value="0.1865" />
         <entry key="app/src/main/res/drawable/ic_baseline_cancel_24.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_baseline_delete_24.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_baseline_favorite_36.xml" value="0.14" />
         <entry key="app/src/main/res/drawable/ic_baseline_info_24.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_baseline_person_outline_24.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_favorite_border_36.xml" value="0.14" />
+        <entry key="app/src/main/res/drawable/ic_ffwd.xml" value="0.1525" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.169" />
-        <entry key="app/src/main/res/layout/activity_detail.xml" value="0.1322463768115942" />
+        <entry key="app/src/main/res/drawable/toggle.xml" value="0.1525" />
+        <entry key="app/src/main/res/layout/activity_detail.xml" value="0.355463347164592" />
         <entry key="app/src/main/res/layout/activity_index.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_welcome.xml" value="0.31203703703703706" />
         <entry key="app/src/main/res/layout/content_detail_channel.xml" value="0.1322463768115942" />

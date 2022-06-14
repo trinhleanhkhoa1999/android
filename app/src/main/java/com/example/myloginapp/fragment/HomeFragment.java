@@ -101,13 +101,11 @@ public class HomeFragment<onViewCreated> extends Fragment {
 
 
     }
-
-
     private void fetchChanels(){
         ApiService.apiService.GetChanels().enqueue(new Callback<List<Chanel>>() {
             @Override
             public void onResponse(Call<List<Chanel>> call, Response<List<Chanel>> response) {
-
+                mChanelsList.clear();
                 if(response.isSuccessful() && response.body() !=null ){
 
                     Toast.makeText(getActivity(),"Loading",Toast.LENGTH_SHORT).show();
@@ -129,6 +127,4 @@ public class HomeFragment<onViewCreated> extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home2, container, false);
     }
-
-
 }
