@@ -6,11 +6,9 @@ import androidx.fragment.app.Fragment;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -21,11 +19,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.example.myloginapp.Chanel;
 import com.example.myloginapp.ChanelAdapter;
 import com.example.myloginapp.R;
-import com.example.myloginapp.CartoonAdapter;
 import com.example.myloginapp.api.ApiService;
-import com.example.myloginapp.database.ChanelDatabase;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
@@ -35,10 +30,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;

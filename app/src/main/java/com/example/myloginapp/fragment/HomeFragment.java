@@ -81,25 +81,6 @@ public class HomeFragment<onViewCreated> extends Fragment {
         recyclerView.setAdapter(chanelAdapter);
 
         fetchChanels();
-
-//        rcvUser = view.findViewById(R.id.rcv_user);
-//        rcvUser1 = view.findViewById(R.id.rcv_user1);
-//
-////        getActivity().findViewById(R.id.rcv_user);
-//        mUserAdapter = new UserAdapter(requireContext());
-//
-//        LinearLayoutManager gridLayoutManager = new LinearLayoutManager (requireContext(), LinearLayoutManager.HORIZONTAL, false);
-//        rcvUser.setLayoutManager(gridLayoutManager );
-//        LinearLayoutManager gridLayoutManager1 = new LinearLayoutManager (requireContext(), LinearLayoutManager.HORIZONTAL, false);
-//        rcvUser1.setLayoutManager(gridLayoutManager1 );
-//
-//        mUserAdapter.setData(getListUser());
-//        rcvUser.setAdapter(mUserAdapter);
-//
-//
-//        rcvUser1.setAdapter(mUserAdapter);
-
-
     }
     private void fetchChanels(){
         ApiService.apiService.GetChanels().enqueue(new Callback<List<Chanel>>() {

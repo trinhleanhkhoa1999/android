@@ -19,10 +19,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.example.myloginapp.Chanel;
 import com.example.myloginapp.ChanelAdapter;
 import com.example.myloginapp.R;
-import com.example.myloginapp.Cartoon;
-import com.example.myloginapp.CartoonAdapter;
 import com.example.myloginapp.api.ApiService;
-import com.example.myloginapp.database.ChanelDatabase;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
