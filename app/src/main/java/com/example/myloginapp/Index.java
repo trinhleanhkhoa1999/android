@@ -23,6 +23,10 @@ import android.view.WindowManager;
 import android.widget.Button;
 
 import com.example.myloginapp.database.ChanelDatabase;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -39,10 +43,27 @@ public class Index extends AppCompatActivity {
     public static final String TOKEN = "token";
     Dialog myDialog;
 
+    GoogleSignInOptions gso;
+    GoogleSignInClient gsc;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_index);
+
+        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+//                .requestIdToken(getString(R.string.server_client_id))
+                .requestEmail()
+                .build();
+
+        gsc = GoogleSignIn.getClient(this, gso);
+
+        GoogleSignInAccount  acct = GoogleSignIn.getLastSignedInAccount(this);
+        if (acct != null){
+            String pernal= acct.getDisplayName();
+            String email = acct.getEmail();
+
+        }
 
         mTablayout = findViewById(R.id.tab_layout);
         mViewPager = findViewById(R.id.view_pager);
@@ -138,4 +159,6 @@ public class Index extends AppCompatActivity {
             }
         });
     }
+
+
 }

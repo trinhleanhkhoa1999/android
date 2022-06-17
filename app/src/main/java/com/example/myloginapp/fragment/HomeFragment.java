@@ -81,33 +81,12 @@ public class HomeFragment<onViewCreated> extends Fragment {
         recyclerView.setAdapter(chanelAdapter);
 
         fetchChanels();
-
-//        rcvUser = view.findViewById(R.id.rcv_user);
-//        rcvUser1 = view.findViewById(R.id.rcv_user1);
-//
-////        getActivity().findViewById(R.id.rcv_user);
-//        mUserAdapter = new UserAdapter(requireContext());
-//
-//        LinearLayoutManager gridLayoutManager = new LinearLayoutManager (requireContext(), LinearLayoutManager.HORIZONTAL, false);
-//        rcvUser.setLayoutManager(gridLayoutManager );
-//        LinearLayoutManager gridLayoutManager1 = new LinearLayoutManager (requireContext(), LinearLayoutManager.HORIZONTAL, false);
-//        rcvUser1.setLayoutManager(gridLayoutManager1 );
-//
-//        mUserAdapter.setData(getListUser());
-//        rcvUser.setAdapter(mUserAdapter);
-//
-//
-//        rcvUser1.setAdapter(mUserAdapter);
-
-
     }
-
-
     private void fetchChanels(){
         ApiService.apiService.GetChanels().enqueue(new Callback<List<Chanel>>() {
             @Override
             public void onResponse(Call<List<Chanel>> call, Response<List<Chanel>> response) {
-
+                mChanelsList.clear();
                 if(response.isSuccessful() && response.body() !=null ){
 
                     Toast.makeText(getActivity(),"Loading",Toast.LENGTH_SHORT).show();
@@ -129,6 +108,4 @@ public class HomeFragment<onViewCreated> extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home2, container, false);
     }
-
-
 }

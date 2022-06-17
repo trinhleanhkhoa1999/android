@@ -16,21 +16,28 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myloginapp.api.ApiService;
 import com.example.myloginapp.database.ChanelDatabase;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -44,6 +51,7 @@ public class ChanelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private List<Chanel> mChanelsList;
     private List<Chanel> getmChanelsList;
     public  String token;
+    boolean check;
     Dialog myDialog;
     SharedPreferences sharedPreferences;
 
@@ -85,6 +93,7 @@ public class ChanelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Chanel chanel = mChanelsList.get(position);
         if (TYPE_LAYOUT ==1 ){
+            check=false;
             ChanelViewHolder chanelViewHolder = (ChanelViewHolder) holder;
             Picasso.get().load(mChanelsList.get(position).getImage()).into(chanelViewHolder.chanelView);
             chanelViewHolder.chanelTextView1.setText(chanel.getTitle());
@@ -95,19 +104,28 @@ public class ChanelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         chanelViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 if (mChanelsList.get(position).isStatus()){
+
+                    addToHistory(chanel.getId());
+
                     CheckLogin(mChanelsList.get(position).getId().toString(),view);
+
                 }else {
-                    ChanelDatabase.getInstance(view.getContext()).chanelDao().InsertChanel(chanel);
+
+                    addToHistory(mChanelsList.get(position).getId());
                     Intent i = new Intent(view.getContext(),Detail.class);
+                    i.putExtra("chanel_id",chanel.getId());
                     i.putExtra("chanel",mChanelsList.get(position).getUrl());
                     i.putExtra("chaneltitle",mChanelsList.get(position).getTitle());
                     i.putExtra("chanelcontent",mChanelsList.get(position).getContent());
+                    i.putExtra("check",checkChanelId(chanel.getId()));
                     view.getContext().startActivity(i);
                 }
             }
         });
         }else if( TYPE_LAYOUT == 0){
+            check = false;
             myDialog = new Dialog(mContext);
             myDialog.setContentView(R.layout.delete_dialog);
             HistoryChanelViewHolder historyChanelViewHolder = (HistoryChanelViewHolder) holder;
@@ -116,7 +134,7 @@ public class ChanelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             historyChanelViewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
-                    deleteDiaLog(chanel);
+                    deleteDiaLog(chanel.getId());
                     return false;
                 }
             });
@@ -127,39 +145,46 @@ public class ChanelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                         CheckLogin(mChanelsList.get(position).getId().toString(),view);
 //                    openDiaLog();
                     }else {
-                        ChanelDatabase.getInstance(view.getContext()).chanelDao().InsertChanel(chanel);
-                        ChanelDatabase.getInstance(view.getContext()).chanelDao().getListChanel();
                         Intent i = new Intent(view.getContext(),Detail.class);
                         i.putExtra("chanel",mChanelsList.get(position).getUrl());
                         i.putExtra("chaneltitle",mChanelsList.get(position).getTitle());
                         i.putExtra("chanelcontent",mChanelsList.get(position).getContent());
-                        Loaddata();
+                        i.putExtra("check",checkChanelId(chanel.getId()));
                         view.getContext().startActivity(i);
                     }
                 }
             });
         } else {
+            check = false;
+            myDialog = new Dialog(mContext);
+            myDialog.setContentView(R.layout.delete_dialog);
             FavoriteChanelViewHolder favoriteChanelViewHolder  = (FavoriteChanelViewHolder) holder;
             Picasso.get().load(mChanelsList.get(position).getImage()).into(favoriteChanelViewHolder.chanelView);
             favoriteChanelViewHolder.chanelName.setText(chanel.getTitle());
             favoriteChanelViewHolder.chanelTextRate.setText(String.valueOf(chanel.getRate()));
+
+            favoriteChanelViewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    deleteDiaLog(chanel.getId());
+                    return false;
+                }
+            });
             favoriteChanelViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (mChanelsList.get(position).isStatus()){
-                        CheckLogin(mChanelsList.get(position).getId().toString(),view);
-                    }else {
-                        ChanelDatabase.getInstance(view.getContext()).chanelDao().InsertChanel(chanel);
-                        ChanelDatabase.getInstance(view.getContext()).chanelDao().getListChanel();
                         Intent i = new Intent(view.getContext(),Detail.class);
+                        i.putExtra("chanel_id",chanel.getId());
                         i.putExtra("chanel",mChanelsList.get(position).getUrl());
                         i.putExtra("chaneltitle",mChanelsList.get(position).getTitle());
                         i.putExtra("chanelcontent",mChanelsList.get(position).getContent());
+
+                        i.putExtra("check",checkChanelId(chanel.getId()));
                         view.getContext().startActivity(i);
-                    }
                 }
             });
         }
+
     }
 
     @Override
@@ -238,8 +263,14 @@ public class ChanelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
     }
 
-    public void Loaddata(){
-        mChanelsList = ChanelDatabase.getInstance(mContext).chanelDao().getListChanel();
+    public void LoaddataFavorite(){
+//        mChanelsList = ChanelDatabase.getInstance(mContext).chanelDao().getListChanel();
+        mChanelsList = getItemChanel();
+        notifyDataSetChanged();
+    }
+    public  void  LoaddataHistory(){
+        mChanelsList.clear();
+        mChanelsList = getItemChanel2();
         notifyDataSetChanged();
     }
 
@@ -275,6 +306,8 @@ public class ChanelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                             JSONObject k = json.getJSONObject("chanel");
                             Intent i = new Intent(view.getContext(),Detail.class);
                             i.putExtra("chanel",k.getString("url"));
+                            i.putExtra("id",k.getString("id"));
+                            checkChanelId(k.getString("id"));
                             view.getContext().startActivity(i);
                         }
                     }
@@ -290,7 +323,6 @@ public class ChanelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
             }
         });
-
 
     }
 //    Intent intent = new Intent(view.getContext(),Detail.class);
@@ -320,7 +352,7 @@ public class ChanelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         });
     }
 
-    private  void  deleteDiaLog(Chanel chanel){
+    private  void  deleteDiaLog(String s){
         myDialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         myDialog.show();
@@ -338,13 +370,179 @@ public class ChanelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ChanelDatabase.getInstance(view.getContext()).chanelDao().Delete(chanel);
-                Loaddata();
+               if (TYPE_LAYOUT==0){
+                   deleteHistory(s);
+                   LoaddataHistory();
+               }else {
+                   deleteFavorite(s);
+                   LoaddataFavorite();
+               }
                 myDialog.dismiss();
             }
         });
     }
 
+    private void deleteFavorite(String s){
+        sharedPreferences = mContext.getSharedPreferences("token", mContext.MODE_PRIVATE);
+        token = sharedPreferences.getString("token","");
+        if(token!=null){
+            ChanelRequest chanelRequest = new ChanelRequest(s);
+            ApiService.apiService.deleteFavoriteChanel(token,chanelRequest).enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    if (response.isSuccessful()){
+                        Toast.makeText(myDialog.getContext(), "Deleted to Favorite",Toast.LENGTH_SHORT).show();
+                    }
+                }
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                }
+            });
+        }
+    }
+
+    private void deleteHistory(String s){
+        sharedPreferences = mContext.getSharedPreferences("token", mContext.MODE_PRIVATE);
+        token = sharedPreferences.getString("token","");
+        if(token!=null){
+            ChanelRequest chanelRequest = new ChanelRequest(s);
+            ApiService.apiService.deleteHistory(token,chanelRequest).enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    if (response.isSuccessful()){
+                        Toast.makeText(myDialog.getContext(), "Deleted to History",Toast.LENGTH_SHORT).show();
+                    }
+                }
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                }
+            });
+        }
+    }
+
+    private void addToHistory(String s){
+        sharedPreferences = mContext.getSharedPreferences("token", mContext.MODE_PRIVATE);
+        token = sharedPreferences.getString("token","");
+        if(token!=null){
+        ChanelRequest chanelRequest = new ChanelRequest(s);
+        ApiService.apiService.AddHistory(token,chanelRequest).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                Toast.makeText(myDialog.getContext(), "Add to History",Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+        }
+    }
+
+    private List<Chanel> getItemChanel(){
+        mChanelsList.clear();
+        sharedPreferences = mContext.getSharedPreferences("token", mContext.MODE_PRIVATE);
+        token = sharedPreferences.getString("token","");
+        Call<ResponseBody> chanelCall = ApiService.apiService.GetFavorite2(token);
+        chanelCall.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()){
+                    try {
+                        String jsonData = response.body().string();
+                        JSONObject json = new JSONObject(jsonData);
+                        JSONObject json2 = json.getJSONObject("data");
+                        JSONArray array = json2.getJSONArray("favorites");
+                        Type listType = new TypeToken<ArrayList<Chanel>>(){}.getType();
+                        List<Chanel> list = new Gson().fromJson(String.valueOf(array),listType);
+                        for(Chanel chanel: list)
+                        {
+                            mChanelsList.add(chanel);
+
+                        }
+                    } catch (IOException | JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            }
+        });
+        return mChanelsList;
+    }
+
+    private List<Chanel> getItemChanel2(){
+        mChanelsList.clear();
+        sharedPreferences = mContext.getSharedPreferences("token", mContext.MODE_PRIVATE);
+        token = sharedPreferences.getString("token","");
+        Call<ResponseBody> chanelCall = ApiService.apiService.GetHistory(token);
+        chanelCall.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()){
+                    try {
+                        String jsonData = response.body().string();
+                        JSONObject json = new JSONObject(jsonData);
+                        JSONObject json2 = json.getJSONObject("data");
+                        JSONArray array = json2.getJSONArray("histories");
+                        Type listType = new TypeToken<ArrayList<Chanel>>(){}.getType();
+                        List<Chanel> list = new Gson().fromJson(String.valueOf(array),listType);
+                        for(Chanel chanel: list)
+                        {
+                            mChanelsList.add(chanel);
+
+                        }
+                    } catch (IOException | JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            }
+        });
+        return mChanelsList;
+    }
+
+    private boolean checkChanelId(String chanel_id){
+        String token;
+        SharedPreferences sharedPreferences = mContext.getSharedPreferences("token", mContext.MODE_PRIVATE);
+        token = sharedPreferences.getString("token","");
+        Call<ResponseBody> chanelCall = ApiService.apiService.GetFavorite2(token);
+        chanelCall.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()){
+                    try {
+                        String jsonData = response.body().string();
+                        JSONObject json = new JSONObject(jsonData);
+                        JSONObject json2 = json.getJSONObject("data");
+                        JSONArray array = json2.getJSONArray("favorites");
+                        Type listType = new TypeToken<ArrayList<Chanel>>(){}.getType();
+                        List<Chanel> list = new Gson().fromJson(String.valueOf(array),listType);
+                        for(Chanel chanel: list)
+                        {
+                            String Id = chanel.getId();
+                            if (Id.equals(chanel_id) == true){
+                                check = true;
+                            }
+                        }
+                    } catch (IOException | JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            }
+        });
+        return check;
+    }
 //    private  void  openDialog(int gravity, Context context){
 //        final Dialog dialog = new Dialog(mContext);
 //        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
